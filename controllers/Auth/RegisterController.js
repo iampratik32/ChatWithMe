@@ -25,6 +25,7 @@ exports.store = async (req, res) => {
         res.redirect('/login')
         return
     }
+    
     catch (err) {
         res.send(err.errors[0].message)
     }

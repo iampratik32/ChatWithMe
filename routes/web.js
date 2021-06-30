@@ -15,6 +15,7 @@ module.exports = ()=>{
     routes.get('/register',RegisterController.index)
 
     routes.post('/register',registerValidation,RegisterController.store)
+    routes.post('/register',registerValidation,LoginController.store)
     
 
     return routes

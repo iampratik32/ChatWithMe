@@ -7,6 +7,9 @@ exports.index = (req,res) =>{
     })
 
 }
+exports.store = (req,res) =>{
+    
+}
 
 
 
