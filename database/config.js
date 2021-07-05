@@ -4,6 +4,7 @@ module.exports = {
     Password: "coldgamez32",
     Database: "ChatApp",
     dialect: "postgres",
+    Port: 5432,
     pool: {
       max: 5,
       min: 0,
