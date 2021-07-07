@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize')
 const db = require('../database/db')
+const Profile = require('./Profile')
 
 const User = db.define('User', {
     name: {
@@ -25,8 +26,22 @@ const User = db.define('User', {
 
 User.sync({ alter: true })
 
-User.prototype.getThisRole = function (){
-    return this.role
+User.prototype.createProfile = async function (){
+    const newProfile = Profile.build({
+        user_id: this.id
+    })
+    await newProfile.save()
 }
+
+// User.prototype.getProfile = async function (){
+//     return Profile.findOne({where:{user_id:this.id}})
+// }
+
+User.hasOne(Profile,{
+    foreignKey: 'user_id'
+})
+Profile.belongsTo(User,{
+    foreignKey:'user_id'
+})
 
 module.exports = User

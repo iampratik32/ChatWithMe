@@ -31,7 +31,7 @@ function initialize(passport) {
     passport.serializeUser((user, done) => done(null, user.id))
 
     passport.deserializeUser(async (_id, done) => {
-        return done(null, await User.findByPk(_id))
+        return done(null, await User.findByPk(_id,{attributes:['id','name','role']}))
     })
 }
 

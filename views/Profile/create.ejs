@@ -1,0 +1,43 @@
+<%- include('../Layouts/header.ejs'); -%>
+
+    <div class="container-fluid mt-5">
+
+        <div class="container mt-5">
+            <% if (user.Profile.username) { %>
+                <h5>Edit Your Profile</h5>
+                <% } else { %>
+                    <h5>Create Your Profile</h5>
+                    <% } %>
+                        <form action="/profile" method="POST" enctype="multipart/form-data">
+                            <div class="row mt-5">
+                                <div class="col-md-3 text-center">
+                                    Username
+                                </div>
+                                <div class="col-md-6">
+                                    <input required type="text" name="username" class="form-control"
+                                        value="<%- user.Profile.username %>">
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-3 text-center">
+                                    Display Image
+                                </div>
+                                <div class="col-md-6">
+                                    <input <% if (user.Profile.image==null) { %>
+                                     required
+                                    <% } %> type="file" class="form-control" name="Image">
+                                </div>
+                            </div>
+                            <% if (user.Profile.image) { %>
+                                <div class="alert alert-primary d-flex align-items-center mt-5" role="alert">
+                                    * Only Add A New Image If You Want To Change It.
+                                </div>
+                                <% } %>
+                                    <div class="col-md-9 text-center mt-5">
+                                        <button type="submit" class="btn btn-success">Next</button>
+                                    </div>
+
+                        </form>
+
+        </div>
+    </div>
