@@ -1,6 +1,10 @@
-exports.index = (req,res) =>{
+const User = require("../models/User")
+
+exports.index = async (req,res) =>{
+    const user = await User.findByPk(req.user.id,{attributes:['id','name','role','email'],include:'Profile'})
+
     res.render('index',{
-        user: req.user,
+        user: user,
         title:'Home'
     })
 }

@@ -33,9 +33,9 @@ User.prototype.createProfile = async function (){
     await newProfile.save()
 }
 
-// User.prototype.getProfile = async function (){
-//     return Profile.findOne({where:{user_id:this.id}})
-// }
+User.prototype.getProfile = async function (){
+    return Profile.findOne({where:{user_id:this.id}})
+}
 
 User.hasOne(Profile,{
     foreignKey: 'user_id'

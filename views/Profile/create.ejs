@@ -3,7 +3,7 @@
     <div class="container-fluid mt-5">
 
         <div class="container mt-5">
-            <% if (user.Profile.username) { %>
+            <% if (user.Profile.userName) { %>
                 <h5>Edit Your Profile</h5>
                 <% } else { %>
                     <h5>Create Your Profile</h5>
@@ -15,7 +15,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <input required type="text" name="username" class="form-control"
-                                        value="<%- user.Profile.username %>">
+                                        value="<%- user.Profile.userName %>">
                                 </div>
                             </div>
                             <div class="row mt-5">

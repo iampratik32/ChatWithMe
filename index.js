@@ -56,7 +56,7 @@ app.set('views', path.join(__dirname, './views'))
 
 
 
-app.listen(3002, () => {
-    console.log('http://localhost:3002')
+app.listen(3000, () => {
+    console.log('http://localhost:3000')
 })
 

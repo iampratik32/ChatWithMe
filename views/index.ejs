@@ -1,2 +1,7 @@
-<h2>Chat With Me</h2><br>
-Welcome <%- user.name %> 
+<%- include('./Layouts/header.ejs'); -%>
+
+    <div class="container-fluid mt-5">
+        <h2>Chat With Me</h2><br>
+        <img style="width: 100px; height:100px; border-radius: 50%;" src="/uploads/<%- user.Profile.image %>">
+        <span class="ml-2">Welcome <%- user.Profile.userName %></span>
+    </div>
