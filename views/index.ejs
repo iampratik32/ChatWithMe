@@ -3,5 +3,28 @@
     <div class="container-fluid mt-5">
         <h2>Chat With Me</h2><br>
         <img style="width: 100px; height:100px; border-radius: 50%;" src="/uploads/<%- user.Profile.image %>">
-        <span class="ml-2">Welcome <%- user.Profile.userName %></span>
+        <span style="margin-left: 10px;"><%- user.Profile.userName %></span><br>
+
+        <div class="container mt-5">
+            <h3>Your Servers</h3>
+            <br>
+            <div class="row">
+                <% servers.forEach(server => { %>
+                    <div class="col-md-6 mt-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img style="width: 75px; height:75px; border-radius: 50%;" src="/uploads/<%- server.image %>">
+                            </div>
+                            <div class="col-md-6 justify-content-center align-self-center">
+                                <h5 class="align-middle"><a href="/server/<%- server.id %>"><%- server.name %></a> (1)</h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                <% }) %>
+                
+                
+                
+            </div>
+        </div>
     </div>

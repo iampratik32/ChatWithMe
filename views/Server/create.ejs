@@ -1,0 +1,36 @@
+<%- include('../Layouts/header.ejs') -%>
+
+    <div class="container mt-5">
+        <h3>Create Your Server</h3><br>
+
+        <form action="/servers" enctype="multipart/form-data" method="POST">
+            <div class="row">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Name:
+                </div>
+                <div class="col-md-6">
+                    <input required type="text" name="Name" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Description:
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="Description" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Image:
+                </div>
+                <div class="col-md-6">
+                    <input required type="file" class="form-control" name="Image">
+                </div>
+            </div>
+            <div class="col-md-9 text-center mt-5">
+                <button type="submit" class="btn btn-success">Create Server</button>
+            </div>
+        </form>
+
+    </div>

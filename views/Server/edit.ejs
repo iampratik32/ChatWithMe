@@ -1,0 +1,40 @@
+<%- include('../Layouts/header.ejs') -%>
+
+    <div class="container mt-5">
+        <h3>Edit <a href="/server/<%- server.id %>"><%- server.name %></a> </h3><br>
+
+        <form action="/servers?_method=PUT" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="id" value="<%- server.id %>">
+            <div class="row">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Name:
+                </div>
+                <div class="col-md-6">
+                    <input value="<%- server.name %>" required type="text" name="Name" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Description:
+                </div>
+                <div class="col-md-6">
+                    <input type="text" value="<%- server.description %>" name="Description" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Image:
+                </div>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" name="Image">
+                </div>
+            </div>
+            <div class="alert alert-primary d-flex align-items-center mt-5" role="alert">
+                * Only Add A New Image If You Want To Change Server Image.
+            </div>
+            <div class="col-md-9 text-center mt-5">
+                <button type="submit" class="btn btn-success">Edit Server</button>
+            </div>
+        </form>
+
+    </div>

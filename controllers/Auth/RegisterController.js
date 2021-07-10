@@ -19,7 +19,7 @@ exports.store = async (req, res) => {
         await bcrypt.hash(body.password, saltRounds).then(function (hash) {
             // Store hash in your password DB.
             newUser.password = hash
-        });
+        })
 
         await newUser.save()
         await newUser.createProfile()

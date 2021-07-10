@@ -5,18 +5,19 @@ const PostgresStore = require('connect-pg-simple')(session)
 const sessionPool = require('pg').Pool
 const cookieParser = require('cookie-parser')
 const db = require('./database/config')
-const app = express();
+const app = express()
+const methodOverride = require('method-override')
 const path = require('path')
 const routes = require('./routes/web')
 // const bodyParser = require('body-parser')
 const passport = require('passport')
 
-const sessionKey = '7ewp1gk3mftoru';
+const sessionKey = '7ewp1gk3mftoru'
 
 app.use(express.static(path.join(__dirname, './public')))
-// app.use(bodyParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(methodOverride('_method'))
 app.use(cookieParser())
 app.use(flash())
 

@@ -9,7 +9,7 @@ exports.loginValidation = [
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             console.log(errors.errors)
-            // res.locals.error_messages = req.flash('asdsad');
+            // res.locals.error_messages = req.flash('asdsad')
             res.redirect('back')
             return
         }

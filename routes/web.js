@@ -10,6 +10,7 @@ const LoginController = require('../controllers/Auth/LoginController')
 const RegisterController = require('../controllers/Auth/RegisterController')
 const ProfileController = require('../controllers/ProfileController')
 const ImageController = require('../controllers/ImageController')
+const ServerController = require('../controllers/ServerController')
 
 
 const { loginValidation } = require('../middlewares/validators/loginValidator')
@@ -36,7 +37,11 @@ module.exports = () => {
 
     routes.get('/uploads/:image',ImageController.index)
 
-
+    routes.get('/server/create',authentication, ServerController.create)
+    routes.get('/server/:id',authentication, ServerController.show)
+    routes.get('/server/:id/edit',authentication, ServerController.edit)
+    routes.post('/servers',authentication, ServerController.store)
+    routes.put('/servers',authentication, ServerController.update)
 
     // routes.get('/home')
 
