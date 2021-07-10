@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize')
 const db = require('../database/db')
+const ServerChannel = require('./ServerChannel')
 
 const Server = db.define('Server',{
     name:{
@@ -28,5 +29,17 @@ const Server = db.define('Server',{
 
 Server.sync({ alter: true })
 
+Server.hasMany(ServerChannel,{
+    foreignKey: 'server_id',
+    onDelete:'cascade'
+})
+
+ServerChannel.belongsTo(Server,{
+    foreignKey:'server_id'
+})
+
+Server.prototype.getChannels = async function (){
+    return ServerChannel.findAll({where:{server_id:this.id}})
+}
 
 module.exports = Server

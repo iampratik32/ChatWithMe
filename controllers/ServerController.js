@@ -63,7 +63,7 @@ exports.store = async (req, res, next) => {
                 description: req.body.Description,
             })
 
-            server.save().then((s) => {
+            server.save().then(() => {
                 return res.redirect(`/server/${server.id}`)
             })
         }
@@ -78,11 +78,13 @@ exports.show = async (req, res) => {
     const sId = req.params.id
     await Server.findOne({ where: { id: sId } }).then(async (server) => {
         if (server) {
+            const channels = await server.getChannels()
             const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
             return res.render('Server/show', {
                 user: req.user,
                 admin: admin,
                 server: server,
+                channels: channels,
                 title: server.name
             })
         }
@@ -109,4 +111,24 @@ exports.edit = async (req, res) => {
         return res.send(404)
 
     })
+}
+
+exports.destroy = async (req, res) => {
+    const id = req.body.id
+    try {
+        const server = await Server.findByPk(id)
+        await server.destroy().then(() => {
+            res.redirect('/')
+        })
+
+    }
+    catch (err) {
+        console.log(err)
+        res.send(err)
+    }
+
+}
+
+exports.index = async (req, res) => {
+    res.send('Servers')
 }

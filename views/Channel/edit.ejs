@@ -1,0 +1,26 @@
+<%- include('../Layouts/header.ejs') %>
+
+    <div class="container mt-5">
+        <h3>Edit <a href="/server/<%- server.id %>/channel/<%- channel.id %>"><%- channel.name %> </a> Of <a href="/server/<%- server.id %>"><%- server.name %> </a></h3><br>
+
+        <form action="/server/<%- server.id %>/channel/create?_method=PUT" method="POST">
+            <input type="hidden" value="<%- channel.id %>" name="id">
+            <div class="row">
+                <div class="col-md-2 justify-content-center align-self-center">
+                    Name:
+                </div>
+                <div class="col-md-6">
+                    <input required type="text" value="<%- channel.name %>" name="Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-9 text-center mt-5">
+                <button type="submit" class="btn btn-success">Edit Channel</button>
+            </div>
+        </form>
+        <form action="/server/<%- server.id %>/channel?_method=DELETE" method="POST">
+            <input type="hidden" name="id" value="<%- channel.id %>">
+            <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger">Delete Channel</button>
+
+        </form>
+
+    </div>
