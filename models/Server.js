@@ -1,6 +1,8 @@
 var Sequelize = require('sequelize')
 const db = require('../database/db')
+const InvitationLink = require('./InvitationLink')
 const ServerChannel = require('./ServerChannel')
+const UserServer = require('./UserServer')
 
 const Server = db.define('Server',{
     name:{
@@ -34,8 +36,26 @@ Server.hasMany(ServerChannel,{
     onDelete:'cascade'
 })
 
+Server.hasMany(InvitationLink,{
+    foreignKey: 'server_id',
+    onDelete:'cascade'
+})
+
 ServerChannel.belongsTo(Server,{
     foreignKey:'server_id'
+})
+
+Server.hasMany(UserServer,{
+    foreignKey:'server_id',
+    onDelete:'cascade'
+})
+
+UserServer.belongsTo(Server,{
+    foreignKey:'server_id'
+})
+
+InvitationLink.belongsTo(Server,{
+    foreignKey: 'server_id'
 })
 
 Server.prototype.getChannels = async function (){

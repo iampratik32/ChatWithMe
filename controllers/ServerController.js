@@ -2,6 +2,7 @@ const Server = require('../models/Server')
 const multerUpload = require('../middlewares/multerMiddleware')
 const multer = require('multer')
 const User = require('../models/User')
+const UserServer = require('../models/UserServer')
 const upload = multerUpload.single('Image')
 
 exports.create = async (req, res) => {
@@ -63,7 +64,11 @@ exports.store = async (req, res, next) => {
                 description: req.body.Description,
             })
 
-            server.save().then(() => {
+            server.save().then((s) => {
+                UserServer.build({
+                    user_id: s.user_id,
+                    server_id: s.id
+                }).save()
                 return res.redirect(`/server/${server.id}`)
             })
         }
@@ -78,10 +83,15 @@ exports.show = async (req, res) => {
     const sId = req.params.id
     await Server.findOne({ where: { id: sId } }).then(async (server) => {
         if (server) {
+            const user = req.user;
+            const us = await UserServer.findOne({where:{user_id:user.id,server_id:server.id}})
+            if(!us){
+                return res.send(404)
+            }
             const channels = await server.getChannels()
             const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
             return res.render('Server/show', {
-                user: req.user,
+                user: user,
                 admin: admin,
                 server: server,
                 channels: channels,
@@ -130,5 +140,10 @@ exports.destroy = async (req, res) => {
 }
 
 exports.index = async (req, res) => {
-    res.send('Servers')
+    const allServers = await req.user.allServers()
+    return res.render('Server/index', {
+        user: req.user,
+        servers: allServers,
+        title: 'Your Servers'
+    })
 }

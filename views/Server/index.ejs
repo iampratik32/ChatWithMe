@@ -1,0 +1,28 @@
+<%- include('../Layouts/header.ejs') -%>
+
+    <div class="container mt-5">
+        <h3>All Your Joined Servers</h3><br>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Server</th>
+                    <th class="text-center">Members</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% servers.forEach(s => { %>
+                    <tr>
+                        <td class="text-center">
+                            <a href="/server/<%- s.server_id %>"><img style="width: 75px; height:75px; border-radius: 50%;" src="/uploads/<%- s.Server.image %> "></a>
+                        </td>
+                        <td class="text-center align-middle"><a href="/server/<%- s.server_id %>"><%- s.Server.name %></a</td>
+                        <td class="text-center align-middle">1</td>
+                    </tr>
+                <% }) %>
+                
+            </tbody>
+        </table>
+
+    </div>

@@ -1,0 +1,12 @@
+<%- include('../Layouts/header.ejs') %>
+
+    <div class="container mt-5">
+        <%- reason %><br>
+
+            <div class="mt-5">
+                <% if (sId) { %>
+                    <a class="btn btn-warning" href="/server/<%- sId %>">View Server</a>                    
+                <% } %>
+            </div>
+
+    </div>

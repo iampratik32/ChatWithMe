@@ -21,15 +21,21 @@ exports.show = async (req, res) => {
         if (server) {
             const channels = await server.getChannels()
             const channel = await ServerChannel.findByPk(cId)
-            const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
-            return res.render('Channel/show', {
-                user: req.user,
-                admin: admin,
-                server: server,
-                channels: channels,
-                channel: channel,
-                title: server.name
-            })
+            if(channel){
+                const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
+                return res.render('Channel/show', {
+                    user: req.user,
+                    admin: admin,
+                    server: server,
+                    channels: channels,
+                    channel: channel,
+                    title: `${server.name} - ${channel.name}`
+                })
+            }
+            else{
+                return res.send(404)
+            }
+            
         }
         return res.send(404)
 

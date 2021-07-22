@@ -12,6 +12,7 @@ const ProfileController = require('../controllers/ProfileController')
 const ImageController = require('../controllers/ImageController')
 const ServerController = require('../controllers/ServerController')
 const ServerChannelController = require('../controllers/ServerChannelController')
+const ServerInvitationController = require('../controllers/ServerInvitationController')
 
 
 const { loginValidation } = require('../middlewares/validators/loginValidator')
@@ -52,6 +53,9 @@ module.exports = () => {
     routes.post('/server/:id/channel/create', authentication, ServerChannelController.store)
     routes.put('/server/:id/channel/create', authentication, ServerChannelController.update)
     routes.delete('/server/:id/channel', authentication, ServerChannelController.destroy)
+
+    routes.post('/server/invitationLink',authentication, ServerInvitationController.store)
+    routes.get('/join/:link',authentication,ServerInvitationController.update)
 
     // routes.get('/home')
 
