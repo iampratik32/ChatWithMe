@@ -30,9 +30,9 @@ const Profile = db.define('Profile', {
 })
 
 // Profile.belongsTo(User)
-
-
-
+Profile.prototype.getUser = async function (id){
+    console.log('Ok'+id)
+}
 
 Profile.sync({ alter: true })
 

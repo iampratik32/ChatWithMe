@@ -2,6 +2,7 @@ var Sequelize = require('sequelize')
 const db = require('../database/db')
 const InvitationLink = require('./InvitationLink')
 const ServerChannel = require('./ServerChannel')
+const User = require('./User')
 const UserServer = require('./UserServer')
 
 const Server = db.define('Server',{
@@ -60,6 +61,10 @@ InvitationLink.belongsTo(Server,{
 
 Server.prototype.getChannels = async function (){
     return ServerChannel.findAll({where:{server_id:this.id}})
+}
+Server.prototype.getUsers = async function (){
+
+    return UserServer.findAll({where:{server_id:this.id},include:'User', attributes:['User.*']})
 }
 
 module.exports = Server

@@ -42,7 +42,10 @@ User.prototype.getServers = async function (){
     return Server.findAll({where:{user_id:this.id}})
 }
 User.prototype.allServers = async function (){
-    return UserServer.findAll({where:{user_id:this.id},include:'Server'})
+    return UserServer.findAll({where:{user_id:this.id},include:[{model:Server}]})
+}
+User.prototype.getThisProfile = async function () {
+    return User.findOne({where:{id:this.id},include:'Profile'})
 }
 
 User.hasOne(Profile,{
@@ -64,6 +67,8 @@ Server.belongsTo(User,{
 UserServer.belongsTo(User,{
     foreignKey:'user_id'
 })
+
+
 
 
 module.exports = User

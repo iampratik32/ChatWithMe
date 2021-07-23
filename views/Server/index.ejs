@@ -12,13 +12,13 @@
                 </tr>
             </thead>
             <tbody>
-                <% servers.forEach(s => { %>
+                <% servers.forEach((s,i) => { %>
                     <tr>
                         <td class="text-center">
                             <a href="/server/<%- s.server_id %>"><img style="width: 75px; height:75px; border-radius: 50%;" src="/uploads/<%- s.Server.image %> "></a>
                         </td>
                         <td class="text-center align-middle"><a href="/server/<%- s.server_id %>"><%- s.Server.name %></a</td>
-                        <td class="text-center align-middle">1</td>
+                        <td class="text-center align-middle">0</td>
                     </tr>
                 <% }) %>
                 

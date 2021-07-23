@@ -3,22 +3,28 @@
     <hr>
     <h6>Admin</h6>
     <div class="mt-4">
-        <img src="/uploads/<%- admin.Profile.image %>"
-            style="height: 40px; width:40px; border-radius: 50%;">
+        <img src="/uploads/<%- admin.Profile.image %>" style="height: 40px; width:40px; border-radius: 50%;">
         <span style="padding-left: 10px;">
-            <%- admin.name %>
+            <%- admin.Profile.userName %>
         </span>
     </div>
     <hr>
     <h6>Sathi Haru</h6>
-    <div class="mt-4">
-        <img src="/uploads/<%- admin.Profile.image %>"
-            style="height: 40px; width:40px; border-radius: 50%;">
-        <span style="padding-left: 10px;">User 1</span>
-    </div>
-    <div class="mt-4">
-        <img src="/uploads/<%- admin.Profile.image %>"
-            style="height: 40px; width:40px; border-radius: 50%;">
-        <span style="padding-left: 10px;">User 2</span>
-    </div>
+    <% members.forEach(u=> { %>
+        <% if (u.id!=admin.id) { %>
+            <div class="mt-4">
+                <img src="/uploads/<%- u.Profile.image %>" style="height: 40px; width:40px; border-radius: 50%;">
+                <span style="padding-left: 10px;">
+                    <% if (u.id==user.id) { %>
+                        <span style="color: brown; font-weight: bold;">
+                            <% } else { %>
+                                <span>
+                                    <% } %>
+                                        <%- u.Profile.userName %>
+                                </span>
+                        </span>
+            </div>
+            <% } %>
+                <% }) %>
+
 </div>

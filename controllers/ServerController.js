@@ -3,6 +3,7 @@ const multerUpload = require('../middlewares/multerMiddleware')
 const multer = require('multer')
 const User = require('../models/User')
 const UserServer = require('../models/UserServer')
+const Profile = require('../models/Profile')
 const upload = multerUpload.single('Image')
 
 exports.create = async (req, res) => {
@@ -84,14 +85,22 @@ exports.show = async (req, res) => {
     await Server.findOne({ where: { id: sId } }).then(async (server) => {
         if (server) {
             const user = req.user;
-            const us = await UserServer.findOne({where:{user_id:user.id,server_id:server.id}})
-            if(!us){
+            const us = await UserServer.findOne({ where: { user_id: user.id, server_id: server.id } })
+            if (!us) {
                 return res.send(404)
             }
             const channels = await server.getChannels()
-            const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
+            const users = await server.getUsers()
+            const members = users.map(async u => {
+                const tUser = await u.User.getThisProfile()
+                return tUser
+            })
+
+            const allMembers = await Promise.all(members)
+            const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: Profile })
             return res.render('Server/show', {
                 user: user,
+                members: allMembers,
                 admin: admin,
                 server: server,
                 channels: channels,
@@ -140,10 +149,13 @@ exports.destroy = async (req, res) => {
 }
 
 exports.index = async (req, res) => {
-    const allServers = await req.user.allServers()
-    return res.render('Server/index', {
-        user: req.user,
-        servers: allServers,
-        title: 'Your Servers'
+     await req.user.allServers().then(async (as)=>{
+        
+        return res.render('Server/index', {
+            user: req.user,
+            servers: as,
+            title: 'Your Servers'
+        })
     })
+    
 }
