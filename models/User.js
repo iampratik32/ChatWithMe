@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize')
 const db = require('../database/db')
+const Chat = require('./Chat')
 const Profile = require('./Profile')
 const Server = require('./Server')
 const UserServer = require('./UserServer')
@@ -54,6 +55,9 @@ User.hasOne(Profile,{
 User.hasMany(Server,{
     foreignKey: 'user_id'
 })
+User.hasMany(Chat,{
+    foreignKey: 'user_id'
+})
 User.hasMany(UserServer,{
     foreignKey: 'user_id'
 })
@@ -61,6 +65,9 @@ Profile.belongsTo(User,{
     foreignKey:'user_id'
 })
 Server.belongsTo(User,{
+    foreignKey:'user_id'
+})
+Chat.belongsTo(User,{
     foreignKey:'user_id'
 })
 

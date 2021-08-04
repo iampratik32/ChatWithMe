@@ -6,6 +6,7 @@ const passport = require('passport')
 //controllers & Middlewares
 
 const WelcomeController = require('../controllers/WelcomeController')
+const ChatController = require('../controllers/ChatController')
 const LoginController = require('../controllers/Auth/LoginController')
 const RegisterController = require('../controllers/Auth/RegisterController')
 const ProfileController = require('../controllers/ProfileController')
@@ -56,6 +57,8 @@ module.exports = () => {
 
     routes.post('/server/invitationLink',authentication, ServerInvitationController.store)
     routes.get('/join/:link',authentication,ServerInvitationController.update)
+
+    routes.post('/chat',authentication,ChatController.fetch)
 
     // routes.get('/home')
 

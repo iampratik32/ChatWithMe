@@ -1,17 +1,17 @@
-const randomstring = require("randomstring");
-const InvitationLink = require("../models/InvitationLink");
-const UserServer = require("../models/UserServer");
+const randomstring = require("randomstring")
+const InvitationLink = require("../models/InvitationLink")
+const UserServer = require("../models/UserServer")
 
 exports.store = async (req, res) => {
     const sId = req.body.id
-    const uId = randomstring.generate({ length: 12 });
-    const invitationLink = 'http://' + req.headers.host + '/join/' + uId;
+    const uId = randomstring.generate({ length: 12 })
+    const invitationLink = 'http://' + req.headers.host + '/join/' + uId
 
     await InvitationLink.build({
         server_id: sId,
         link: uId
     }).save().then((il) => {
-        res.json({ link: invitationLink });
+        res.json({ link: invitationLink })
     })
 }
 

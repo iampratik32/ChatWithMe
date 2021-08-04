@@ -1,3 +1,5 @@
+const Chat = require("../models/Chat")
+const Profile = require("../models/Profile")
 const Server = require("../models/Server")
 const ServerChannel = require("../models/ServerChannel")
 const User = require("../models/User")
@@ -21,6 +23,7 @@ exports.show = async (req, res) => {
         if (server) {
             const channels = await server.getChannels()
             const channel = await ServerChannel.findByPk(cId)
+            const chats = await Chat.findAll({where:{channel_id:cId},include:[{model:User,include:[Profile]}]})
             const users = await server.getUsers()            
             const members = users.map(async u => {
                 const tUser = await u.User.getThisProfile()
@@ -31,9 +34,10 @@ exports.show = async (req, res) => {
 
             if (channel) {
                 const admin = await User.findByPk(server.user_id, { attributes: ['id', 'name'], include: 'Profile' })
-
+                const cUser = await User.findByPk(req.user.id, { attributes: ['id', 'name'], include: 'Profile' })
                 return res.render('Channel/show', {
-                    user: req.user,
+                    user: cUser,
+                    chats: chats,
                     members: allMembers,
                     admin: admin,
                     server: server,

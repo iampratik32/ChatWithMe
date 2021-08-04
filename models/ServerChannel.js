@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize')
 const db = require('../database/db')
+const Chat = require('./Chat')
 
 const ServerChannel = db.define('ServerChannel',{
     name:{
@@ -19,6 +20,11 @@ const ServerChannel = db.define('ServerChannel',{
 })
 
 ServerChannel.sync({ alter: true })
+
+ServerChannel.hasMany(Chat,{
+    foreignKey: 'channel_id',
+    onDelete:'cascade'
+})
 
 
 module.exports = ServerChannel
